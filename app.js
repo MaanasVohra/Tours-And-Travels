@@ -16,6 +16,10 @@ app.get("/query", function (req, res) {
     res.render("query");
 });
 
+app.get("/profile", function (req, res) {
+    res.render("profile");
+})
+
 // Server listen request
 app.listen(3000, function () {
     console.log("Server initiated!");
