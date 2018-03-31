@@ -1,0 +1,23 @@
+{
+  "name": "tours-and-travels",
+  "version": "1.0.0",
+  "description": "DBMS Tours and Travels Project",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MaanasVohra/Tours-And-Travels.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MaanasVohra/Tours-And-Travels/issues"
+  },
+  "homepage": "https://github.com/MaanasVohra/Tours-And-Travels#readme",
+  "dependencies": {
+    "ejs": "^2.5.8",
+    "express": "^4.16.3"
+  }
+}
