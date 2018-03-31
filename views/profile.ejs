@@ -1,83 +1,115 @@
 <% include partials/header %>
-    <link rel="stylesheet" href="/css/profile.css" type="text/css">
-</head>
-<body>
-<div class="container">
-    <h1>Edit Profile</h1>
-  	<hr>
-	<div class="row">
-      <!-- left column -->
-      <div class="col-md-3">
-        <div class="text-center">
-          
-          <img src="https://images.freeimages.com/images/large-previews/6d3/entrance-to-amber-palace-1542611.jpg" class="img-thumbnail">
-          <h3>Your User Name</h3>
-          <!-- <h4 class="user_name">(@user_name</h4> -->
+  <link rel="stylesheet" href="/css/profile.css" type="text/css">
+  </head>
+
+  <body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
+            aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Brand</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+          <ul class="nav navbar-nav navbar-right">
+            <li>
+              <a href="#">About</a>
+            </li>
+            <li>
+              <button type="button" class="btn btn-default navbar-btn">Log in</button>
+            </li>
+          </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+      </div>
+      <!-- /.container-fluid -->
+    </nav>
+    <div class="container">
+      <h1>Edit Profile</h1>
+      <hr>
+      <div class="row">
+        <!-- left column -->
+        <div class="col-md-3">
+          <div class="text-center">
+
+            <img src="https://images.freeimages.com/images/large-previews/6d3/entrance-to-amber-palace-1542611.jpg" class="img-thumbnail">
+            <h3>Your User Name</h3>
+            <!-- <h4 class="user_name">(@user_name</h4> -->
+          </div>
+        </div>
+
+        <!-- edit form column -->
+        <div class="col-md-9 personal-info">
+
+          <h2 class="personal-info">Personal info</h2>
+
+          <form class="form-horizontal" role="form">
+            <div class="form-group">
+              <label class="col-lg-3 control-label">First name:</label>
+              <div class="col-lg-8">
+                <input class="form-control" type="text" value="Your First Name">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-lg-3 control-label">Last name:</label>
+              <div class="col-lg-8">
+                <input class="form-control" type="text" value="Your Last Name">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-lg-3 control-label"> Contact : </label>
+              <div class="col-lg-8">
+                <input class="form-control" type="text" value="+91-7706345435">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-lg-3 control-label">Email:</label>
+              <div class="col-lg-8">
+                <input class="form-control" type="text" value="xxxxxxxx@gmail.com">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="col-md-3 control-label">Username:</label>
+              <div class="col-md-8">
+                <input class="form-control" type="text" value="Your User Name">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-md-3 control-label">Password:</label>
+              <div class="col-md-8">
+                <input class="form-control" type="password" value="11111122333">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-md-3 control-label">Confirm password:</label>
+              <div class="col-md-8">
+                <input class="form-control" type="password" value="11111122333">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-md-3 control-label"></label>
+              <div class="col-md-8">
+                <input type="button" class="btn btn-primary" value="Save Changes">
+                <span></span>
+                <input type="reset" class="btn btn-default" value="Cancel">
+              </div>
+            </div>
+          </form>
         </div>
       </div>
-      
-      <!-- edit form column -->
-      <div class="col-md-9 personal-info">
-       
-        <h2 class="personal-info">Personal info</h2>
-        
-        <form class="form-horizontal" role="form">
-          <div class="form-group">
-            <label class="col-lg-3 control-label">First name:</label>
-            <div class="col-lg-8">
-              <input class="form-control" type="text" value="Your First Name">
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="col-lg-3 control-label">Last name:</label>
-            <div class="col-lg-8">
-              <input class="form-control" type="text" value="Your Last Name">
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="col-lg-3 control-label"> Contact : </label>
-            <div class="col-lg-8">
-              <input class="form-control" type="text" value="+91-7706345435">
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="col-lg-3 control-label">Email:</label>
-            <div class="col-lg-8">
-              <input class="form-control" type="text" value="xxxxxxxx@gmail.com">
-            </div>
-          </div>
-          
-          <div class="form-group">
-            <label class="col-md-3 control-label">Username:</label>
-            <div class="col-md-8">
-              <input class="form-control" type="text" value="Your User Name">
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="col-md-3 control-label">Password:</label>
-            <div class="col-md-8">
-              <input class="form-control" type="password" value="11111122333">
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="col-md-3 control-label">Confirm password:</label>
-            <div class="col-md-8">
-              <input class="form-control" type="password" value="11111122333">
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="col-md-3 control-label"></label>
-            <div class="col-md-8">
-              <input type="button" class="btn btn-primary" value="Save Changes">
-              <span></span>
-              <input type="reset" class="btn btn-default" value="Cancel">
-            </div>
-          </div>
-        </form>
-      </div>
-  </div>
-</div>
-<hr>
+    </div>
+    <hr>
 
-<% include partials/footer %>
-
+    <% include partials/footer %>
