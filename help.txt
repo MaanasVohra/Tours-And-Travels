@@ -54,3 +54,17 @@ SQL statements used :
 
     -insertion
     insert into package (dest_id, hotel_id, package_name, package_desc, rate) values (4, 3, "Gold Package", "Surround yourself by the cool breeze of the sea with your stresses and tension mellowed down. It's a paradise indeed!", 6000);
+
+(6) Creation of booking 
+    - create table if not exists booking 
+    (
+        booking_id int not null auto_increment unique,
+        package_id int not null,
+        username varchar(30) not null,
+        booking_desc varchar(100) not null,
+        number_of_people int not null
+    );
+
+    -insertion 
+    insert into booking (package_id, username, booking_desc, number_of_people) values (2, "prajal", "ongoing", 1);
+

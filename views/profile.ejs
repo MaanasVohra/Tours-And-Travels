@@ -49,6 +49,12 @@
             <h3>
               <%= result[0].username %>
             </h3>
+            <div style="margin-bottom: 10px;">
+              <form action="/profile/<%= result[0].username%>/cart" method="GET"><button class="btn btn-primary btn-lg">View Cart</button></form>
+            </div>
+            <div>
+              <button class="btn btn-primary btn-lg">View History</button>
+            </div>
             <!-- <h4 class="user_name">(@user_name</h4> -->
           </div>
         </div>

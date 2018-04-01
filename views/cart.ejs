@@ -38,145 +38,38 @@
       <!-- /.container-fluid -->
     </nav>
 
-    <div class="container" style="margin: 100px 50px">
+    <div class="container">
       <div class="row">
-        <div class="col-xs-12">
-          <div class="table-responsive">
-            <table class="table table-bordered table-hover">
-              <thead>
-                <tr>
-                  <th></th>
-                  <th>Package Id</th>
-                  <th>Destination</th>
-                  <th>No of People</th>
-                  <th>Amount per candidate</th>
-                  <th>Amount</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>
-                    <form class="form">
-                      <div class="switch-field">
-                        <input type="radio" id="switch_left" name="switch_2" value="yes" />
-                        <label for="switch_left">Yes</label>
-                        <input type="radio" id="switch_right" name="switch_2" value="no" checked />
-                        <label for="switch_right">No</label>
-                      </div>
-                    </form>
-                  </td>
-                  <td>1</td>
-                  <td>Delhi</td>
-                  <td>31.3</td>
-                  <td>2,780,387</td>
-                  <td>12546</td>
-                </tr>
-                <tr>
+        <div class="col-md-4">
+          <div class="basic-booking-info">
+            <h2>Booking ID : <%= result[0].booking_id%></h2>
+            <h3>Package ID : <%= result[0].package_id%></h3>
+            <img src="https://images.freeimages.com/images/large-previews/6d3/entrance-to-amber-palace-1542611.jpg" alt="package-destination-image" class="img-thumbnail">
+          </div>
+        </div>
 
-                  <td>
-                    <form class="form">
-                      <div class="switch-field">
-                        <input type="radio" id="switch_left" name="switch_2" value="yes" />
-                        <label for="switch_left">Yes</label>
-                        <input type="radio" id="switch_right" name="switch_2" value="no" checked />
-                        <label for="switch_right">No</label>
-                      </div>
-                    </form>
+        <div class="col-md-4">
+          <div class="basic-package-info">
+            <h2>Package Name : <%= result[0].package_name %></h2>
+            <p><%= result[0].package_desc %></p>
+          </div>
+        </div>
 
-                  </td>
-                  <td>2</td>
-                  <td>Calcutta</td>
-                  <td>37.3</td>
-                  <td>7,739,983</td>
-                  <td>12546</td>
-                </tr>
-                <tr>
-                  <td>
-                    <form class="form">
-                      <div class="switch-field">
-                        <input type="radio" id="switch_left" name="switch_2" value="yes" />
-                        <label for="switch_left">Yes</label>
-                        <input type="radio" id="switch_right" name="switch_2" value="no" checked />
-                        <label for="switch_right">No</label>
-                      </div>
-                    </form>
-                  </td>
-                  <td>3</td>
-                  <td>Chennai</td>
-                  <td>43.2</td>
-                  <td>131,956</td>
-                  <td>12546</td>
-                </tr>
-                <tr>
-                  <td>
-                    <form class="form">
-                      <div class="switch-field">
-                        <input type="radio" id="switch_left" name="switch_2" value="yes" />
-                        <label for="switch_left">Yes</label>
-                        <input type="radio" id="switch_right" name="switch_2" value="no" checked />
-                        <label for="switch_right">No</label>
-                      </div>
-                    </form>
-                  </td>
-                  <td>4</td>
-                  <td>Nagpur</td>
-                  <td>39.1</td>
-                  <td>2,586</td>
-                  <td>12546</td>
-                </tr>
-                <tr>
-                  <td>
-                    <form class="form">
-                      <div class="switch-field">
-                        <input type="radio" id="switch_left" name="switch_2" value="yes" />
-                        <label for="switch_left">Yes</label>
-                        <input type="radio" id="switch_right" name="switch_2" value="no" checked />
-                        <label for="switch_right">No</label>
-                      </div>
-                    </form>
-                  </td>
-                  <td>5</td>
-                  <td>Banglore</td>
-                  <td>38.4</td>
-                  <td>17,076,310</td>
-                  <td>12546</td>
-                </tr>
-                <tr>
-                  <td>
-
-                    <form class="form">
-                      <div class="switch-field">
-                        <input type="radio" id="switch_left" name="switch_2" value="yes" />
-                        <label for="switch_left">Yes</label>
-                        <input type="radio" id="switch_right" name="switch_2" value="no" checked />
-                        <label for="switch_right">No</label>
-                      </div>
-                    </form>
-                  </td>
-                  <td>6</td>
-                  <td>Dehradun</td>
-                  <td>41.1</td>
-                  <td>449,954</td>
-                  <td>12546</td>
-                </tr>
-              </tbody>
-              <tfoot>
-                <tr>
-                  <td colspan="5" style="padding-left: 80%; margin-left: 80%; ">
-                    Total Payment</td>
-                  <td>3500000</td>
-
-                </tr>
-              </tfoot>
-            </table>
+        <div class="col-md-4">
+          <div class="basic-pricing-info">
+            <h2>Rate per person : <%= result[0].rate %></h2>
+            <h3 id="people-quantity">Number of people : <%= result[0].number_of_people %></h3>
+            <h3>Total Cost : Rs.<%= result[0].number_of_people * result[0].rate %></h3>
+            <form action="/profile/<%= result[0].username %>/cart" method="POST">
+            <div class="form-group">
+              <label for="exampleInputName2">Update Number</label>
+                <input type="number" class="form-control" id="exampleInputName2" min=1 name="numberOfPeople">
+            </div>
+            <button class="btn btn-primary" style="margin-bottom: 15px;">Update number</button>
+            </form>
+            <button class="btn btn-primary">Make Payment</button>
 
           </div>
-          <!--end of .table-responsive-->
-
-
-          <button type="button" class="btn btn-success" style="position:relative; top: 50%;left:78%;">Make Payment
-          </button>
-          <button type="button" class="btn btn-danger" style="position:relative; top: 50%;left:80%;">Delete</button>
         </div>
       </div>
     </div>

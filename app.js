@@ -102,9 +102,18 @@ app.get("/about", function (req, res) {
     res.render("about");
 });
 
-// cart page 
-app.get("/cart", function (req, res) {
-    res.render("cart");
+// get request to view cart
+app.get("/profile/:username/cart", function(req, res) {
+    var username = req.params.username;
+    var sqlStatement = "select * from booking inner join package on booking.package_id = package.package_id where username = ? and booking_desc = 'ongoing';";
+    // console.log(sqlStatement);
+    con.query(sqlStatement, [username], function(err, result) {
+        try {
+            res.render("cart", {result: result});
+        } catch (err) {
+            res.send("There is some error / sql query couldn't be made");
+        }
+    });
 });
 
 // ======================
@@ -152,6 +161,20 @@ app.post("/profile", function (req, res) {
         } else {
             console.log("Successful insertion");
             res.redirect("/signup");
+        }
+    });
+});
+
+// updation of cart
+app.post("/profile/:username/cart", function(req, res) {
+    var username = req.params.username  ;
+    var sqlStatement = "update booking set number_of_people = " + req.body.numberOfPeople + " where username = " + "'" + username + "'" + " and booking_desc = 'ongoing';";
+    con.query(sqlStatement, function(err, result) {
+        try {   
+            console.log("Successful cart updation");
+            res.redirect("/profile/" + username + "/cart");
+        } catch (err) {
+            res.send("Error updating / Server error!");
         }
     });
 });
