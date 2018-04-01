@@ -42,9 +42,13 @@
         <!-- left column -->
         <div class="col-md-3">
           <div class="text-center">
-
-            <img src="https://images.freeimages.com/images/large-previews/6d3/entrance-to-amber-palace-1542611.jpg" class="img-thumbnail">
-            <h3>Your User Name</h3>
+            <h2>
+              <u>Username</u>
+            </h2>
+            <!-- <img src="https://images.freeimages.com/images/large-previews/6d3/entrance-to-amber-palace-1542611.jpg" class="img-thumbnail"> -->
+            <h3>
+              <%= result[0].username %>
+            </h3>
             <!-- <h4 class="user_name">(@user_name</h4> -->
           </div>
         </div>
@@ -54,62 +58,72 @@
 
           <h2 class="personal-info">Personal info</h2>
 
-          <form class="form-horizontal" role="form">
+          <form class="form-horizontal" action="/profile/<%= result[0].username %>" method="POST">
             <div class="form-group">
-              <label class="col-lg-3 control-label">First name:</label>
+              <label class="col-lg-3 control-label">Full Name : </label>
               <div class="col-lg-8">
-                <input class="form-control" type="text" value="Your First Name">
-              </div>
-            </div>
-            <div class="form-group">
-              <label class="col-lg-3 control-label">Last name:</label>
-              <div class="col-lg-8">
-                <input class="form-control" type="text" value="Your Last Name">
+                <input class="form-control" type="text" value="<%= result[0].full_name%>" name="fullname" disabled>
               </div>
             </div>
             <div class="form-group">
               <label class="col-lg-3 control-label"> Contact : </label>
               <div class="col-lg-8">
-                <input class="form-control" type="text" value="+91-7706345435">
+                <input class="form-control" type="text" value="<%= result[0].contact %>" name="contact" disabled>
               </div>
             </div>
             <div class="form-group">
               <label class="col-lg-3 control-label">Email:</label>
               <div class="col-lg-8">
-                <input class="form-control" type="text" value="xxxxxxxx@gmail.com">
+                <input class="form-control" type="text" value="<%= result[0].email %>" name="email" disabled>
               </div>
             </div>
 
             <div class="form-group">
-              <label class="col-md-3 control-label">Username:</label>
-              <div class="col-md-8">
-                <input class="form-control" type="text" value="Your User Name">
-              </div>
-            </div>
-            <div class="form-group">
               <label class="col-md-3 control-label">Password:</label>
               <div class="col-md-8">
-                <input class="form-control" type="password" value="11111122333">
+                <input class="form-control" type="password" value="<%= result[0].password %>" name="password" disabled>
               </div>
             </div>
             <div class="form-group">
               <label class="col-md-3 control-label">Confirm password:</label>
               <div class="col-md-8">
-                <input class="form-control" type="password" value="11111122333">
+                <input class="form-control" type="password" value="<%= result[0].password %>" disabled>
               </div>
             </div>
             <div class="form-group">
               <label class="col-md-3 control-label"></label>
               <div class="col-md-8">
-                <input type="button" class="btn btn-primary" value="Save Changes">
-                <span></span>
-                <input type="reset" class="btn btn-default" value="Cancel">
+                <button class="btn btn-primary">Save Changes</button>
               </div>
             </div>
           </form>
+          <button class="btn btn-default" onclick="toggleInput()">Toggle Edit </button>
+          <button class="btn btn-default" onclick="resetInput()">Reset</button>
         </div>
       </div>
     </div>
     <hr>
+
+    <script>
+      
+      function resetInput() {
+        var inputs = document.getElementsByClassName("form-control");
+        for(var i = 0; i < inputs.length; i++) {
+          inputs[i].value = "";
+        }
+      }
+
+      function toggleInput() {
+        var inputs = document.getElementsByClassName("form-control");
+        for (var i = 0; i < inputs.length; i++) {
+          if (inputs[i].disabled == false) {
+            inputs[i].disabled = true;
+          } else {
+            inputs[i].disabled = false;
+          }
+        }
+      }
+
+    </script>
 
     <% include partials/footer %>

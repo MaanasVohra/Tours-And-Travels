@@ -9,6 +9,10 @@ html, body {
     margin-bottom: 20px;
 }
 
+.find-package {
+    margin-top: 5px;
+}
+
 .destination-package-image {
     width: 100%;
 }

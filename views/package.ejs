@@ -1,0 +1,75 @@
+<% include partials/header %>
+    <link href="/css/package.css" rel="stylesheet" type="text/css">
+
+    </head>
+
+    <body>
+   
+    <!-- Navbar -->
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
+                        aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">Brand</a>
+                </div>
+
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="#">About</a>
+                        </li>
+                        <li>
+                            <button type="button" class="btn btn-default navbar-btn">Log in</button>
+                        </li>
+                    </ul>
+                </div>
+                <!-- /.navbar-collapse -->
+            </div>
+            <!-- /.container-fluid -->
+        </nav>
+
+        <div class="container">
+            <div class="row destination-information">
+                <div class="main-destination-information">
+                    <div class="col-md-4">
+                        <img src="https://images.freeimages.com/images/large-previews/6d3/entrance-to-amber-palace-1542611.jpg" alt="package-destination-image" class="img-thumbnail">
+                    </div>
+                    <div class="col-md-8">
+                        <h2><%= result[0].dest_name %></h2>
+                        <p><%= result[0].dest_desc %>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row package-information">
+                <div class="col-md-6">
+                    <div class="main-package-information">
+                    <h2>Package Name : <%=result[0].package_name%></h2>
+                    <p>Package Details : <%= result[0].package_desc%>
+                    </p>
+                    <h3>Package Rate Per Person: Rs. <%= result[0].rate%></h3>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="main-hotel-information">
+                        <h2>Hotel Name : <%= result[0].hotel_name %></h2>
+                        <h3>Hotel Address : <%= result[0].hotel_address %></h3>
+                        <h3>Hotel Contact : <%= result[0].hotel_contact%></h3>
+                    </div>
+                </div>
+            </div>
+
+            <button class="btn btn-primary btn-large">Add To Cart</button>
+        </div>
+<% include partials/footer %>

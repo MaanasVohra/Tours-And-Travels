@@ -1,0 +1,56 @@
+Destinations added : Jaipur, Mumbai, Kasol, Goa
+
+SQL statements used : 
+
+(1) Creation of database 
+    - create database dbms_project
+
+(2) Creation of user table 
+    - create table if not exists user
+        (
+            user_type varchar(30) not null,
+            username varchar(30) not null unique,
+            password varchar(100) not null,
+            full_name varchar(50) not null,
+            contact varchar(20) not null,
+            email varchar(40) not null
+        );
+
+    - insertion is to be done accordingly to the order of the columns
+
+(3) Creation of destination 
+    - create table if not exists destination 
+        (
+            dest_id int not null auto_increment unique,
+            dest_name varchar(30) not null unique,
+            dest_desc varchar(400) not null,
+            primary key (dest_id)
+        );
+
+    - insertion is to be done accordingly
+
+(4) Creation of hotel
+    - create table if not exists hotel
+    (
+        hotel_id int not null auto_increment unique,
+        hotel_name varchar(30) not null,
+        hotel_address varchar(100) not null,
+        hotel_contact varchar(20) not null
+    );
+
+    -insertion (its done accordingly)
+    insert into hotel (hotel_name, hotel_address, hotel_contact) values ("The Leela Mumbai", "Andheri Kurla Road, Sahar, Andheri East, Mumbai, Maharashtra 400059", "022 6691 1234");
+
+(5) Creation of package
+    - create table if not exists package 
+    (
+        package_id int not null auto_increment unique,
+        dest_id int not null,
+        hotel_id int not null,
+        package_name varchar(30) not null,
+        package_desc varchar(400) not null, 
+        rate int not null
+    );
+
+    -insertion
+    insert into package (dest_id, hotel_id, package_name, package_desc, rate) values (4, 3, "Gold Package", "Surround yourself by the cool breeze of the sea with your stresses and tension mellowed down. It's a paradise indeed!", 6000);

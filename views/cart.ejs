@@ -1,0 +1,184 @@
+<% include partials/header %>
+
+  <link href="/css/cart.css" rel="stylesheet" type="text/css">
+
+  </head>
+
+  <body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
+            aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Brand</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+          <ul class="nav navbar-nav navbar-right">
+            <li>
+              <a href="#">About</a>
+            </li>
+            <li>
+              <button type="button" class="btn btn-default navbar-btn">Log in</button>
+            </li>
+          </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+      </div>
+      <!-- /.container-fluid -->
+    </nav>
+
+    <div class="container" style="margin: 100px 50px">
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="table-responsive">
+            <table class="table table-bordered table-hover">
+              <thead>
+                <tr>
+                  <th></th>
+                  <th>Package Id</th>
+                  <th>Destination</th>
+                  <th>No of People</th>
+                  <th>Amount per candidate</th>
+                  <th>Amount</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <form class="form">
+                      <div class="switch-field">
+                        <input type="radio" id="switch_left" name="switch_2" value="yes" />
+                        <label for="switch_left">Yes</label>
+                        <input type="radio" id="switch_right" name="switch_2" value="no" checked />
+                        <label for="switch_right">No</label>
+                      </div>
+                    </form>
+                  </td>
+                  <td>1</td>
+                  <td>Delhi</td>
+                  <td>31.3</td>
+                  <td>2,780,387</td>
+                  <td>12546</td>
+                </tr>
+                <tr>
+
+                  <td>
+                    <form class="form">
+                      <div class="switch-field">
+                        <input type="radio" id="switch_left" name="switch_2" value="yes" />
+                        <label for="switch_left">Yes</label>
+                        <input type="radio" id="switch_right" name="switch_2" value="no" checked />
+                        <label for="switch_right">No</label>
+                      </div>
+                    </form>
+
+                  </td>
+                  <td>2</td>
+                  <td>Calcutta</td>
+                  <td>37.3</td>
+                  <td>7,739,983</td>
+                  <td>12546</td>
+                </tr>
+                <tr>
+                  <td>
+                    <form class="form">
+                      <div class="switch-field">
+                        <input type="radio" id="switch_left" name="switch_2" value="yes" />
+                        <label for="switch_left">Yes</label>
+                        <input type="radio" id="switch_right" name="switch_2" value="no" checked />
+                        <label for="switch_right">No</label>
+                      </div>
+                    </form>
+                  </td>
+                  <td>3</td>
+                  <td>Chennai</td>
+                  <td>43.2</td>
+                  <td>131,956</td>
+                  <td>12546</td>
+                </tr>
+                <tr>
+                  <td>
+                    <form class="form">
+                      <div class="switch-field">
+                        <input type="radio" id="switch_left" name="switch_2" value="yes" />
+                        <label for="switch_left">Yes</label>
+                        <input type="radio" id="switch_right" name="switch_2" value="no" checked />
+                        <label for="switch_right">No</label>
+                      </div>
+                    </form>
+                  </td>
+                  <td>4</td>
+                  <td>Nagpur</td>
+                  <td>39.1</td>
+                  <td>2,586</td>
+                  <td>12546</td>
+                </tr>
+                <tr>
+                  <td>
+                    <form class="form">
+                      <div class="switch-field">
+                        <input type="radio" id="switch_left" name="switch_2" value="yes" />
+                        <label for="switch_left">Yes</label>
+                        <input type="radio" id="switch_right" name="switch_2" value="no" checked />
+                        <label for="switch_right">No</label>
+                      </div>
+                    </form>
+                  </td>
+                  <td>5</td>
+                  <td>Banglore</td>
+                  <td>38.4</td>
+                  <td>17,076,310</td>
+                  <td>12546</td>
+                </tr>
+                <tr>
+                  <td>
+
+                    <form class="form">
+                      <div class="switch-field">
+                        <input type="radio" id="switch_left" name="switch_2" value="yes" />
+                        <label for="switch_left">Yes</label>
+                        <input type="radio" id="switch_right" name="switch_2" value="no" checked />
+                        <label for="switch_right">No</label>
+                      </div>
+                    </form>
+                  </td>
+                  <td>6</td>
+                  <td>Dehradun</td>
+                  <td>41.1</td>
+                  <td>449,954</td>
+                  <td>12546</td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <td colspan="5" style="padding-left: 80%; margin-left: 80%; ">
+                    Total Payment</td>
+                  <td>3500000</td>
+
+                </tr>
+              </tfoot>
+            </table>
+
+          </div>
+          <!--end of .table-responsive-->
+
+
+          <button type="button" class="btn btn-success" style="position:relative; top: 50%;left:78%;">Make Payment
+          </button>
+          <button type="button" class="btn btn-danger" style="position:relative; top: 50%;left:80%;">Delete</button>
+        </div>
+      </div>
+    </div>
+
+    <% include partials/footer %>

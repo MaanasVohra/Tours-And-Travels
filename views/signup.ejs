@@ -1,87 +1,85 @@
 <% include partials/header %>
 
-</head>
+  </head>
 
-<body>
-	<!-- Navbar -->
-	<nav class="navbar navbar-default">
-		<div class="container-fluid">
-			<!-- Brand and toggle get grouped for better mobile display -->
-			<div class="navbar-header">
-				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
-				 aria-expanded="false">
-					<span class="sr-only">Toggle navigation</span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-				</button>
-				<a class="navbar-brand" href="#">Brand</a>
-			</div>
+  <body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
+            aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Brand</a>
+        </div>
 
-			<!-- Collect the nav links, forms, and other content for toggling -->
-			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 
+          <ul class="nav navbar-nav navbar-right">
+            <li>
+              <a href="#">About</a>
+            </li>
+            <li>
+              <button type="button" class="btn btn-default navbar-btn">Log in</button>
+            </li>
+          </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+      </div>
+      <!-- /.container-fluid -->
+    </nav>
 
-				<ul class="nav navbar-nav navbar-right">
-					<li>
-						<a href="#">About</a>
-					</li>
-					<li>
-						<button type="button" class="btn btn-default navbar-btn">Log in</button>
-					</li>
-				</ul>
-			</div>
-			<!-- /.navbar-collapse -->
-		</div>
-		<!-- /.container-fluid -->
-	</nav>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6">
+          <img src="">
+        </div>
+        <div class="col-lg-6">
+          <div class="container-fluid">
+            <h3 class="text-center">Create Account</h3>
+            <div class="container-fluid">
 
+              <!-- Registration form for user -->
+              <form action="/profile" method="POST">
+                <div class="form-row">
+                  <div class="form-group col-md-6">
+                    <label for="username">Username</label>
+                    <input type="text" class="form-control" id="username" name="username" placeholder="Username">
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label for="inputPassword4">Password</label>
+                    <input type="password" class="form-control" id="inputPassword4" name="password" placeholder="Password">
+                  </div>
+                </div>
+                <div class="form-group col-md-12">
+                  <label for="fullname">Full Name</label>
+                  <input type="text" class="form-control" id="fullname" name="fullname" placeholder="John Doe">
+                </div>
+                <div class="form-group col-md-12">
+                  <label for="email">Email</label>
+                  <input type="email" class="form-control" id="email" name="email" placeholder="Email">
+                </div>
+                <div class="form-row">
+                  <div class="form-group col-md-6">
+                    <label for="contact">Contact</label>
+                    <input type="number" min="1" class="form-control" id="contact" name="contact" placeholder="contact">
+                  </div>
+                </div>
+                <div class="col-md-12">
+                  <button type="submit" class="btn btn-primary">Sign in</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
 
-
-	<div class="container">
-		<div class="row">
-			<div class="col-md-6">
-				<img src="https://i.imgur.com/jhlOB1c.png" class="img-responsive" alt="Responsive image">
-			</div>
-			<div class="col-md-6">
-				<h1>Sign Up for an Account</h1>
-				<form class="align-middle">
-					<div class="form-row">
-						<div class="form-group col-md-6">
-							<label for="exampleInputName2">First Name</label>
-							<input type="text" class="form-control" id="exampleInputName2" placeholder="Peter">
-						</div>
-						<div class="form-group col-md-6">
-							<label for="exampleInputEmail2">Last Name</label>
-							<input type="text" class="form-control" id="exampleInputEmail2" placeholder="Parker">
-						</div>
-					</div>
-					<div class="form-group col-md-12">
-						<label for="exampleInputEmail">Email address</label>
-						<input type="email" class="form-control" id="exampleInputEmail" placeholder="peterparker@iiita.ac.in">
-					</div>
-					<div class="form-group col-md-12">
-						<label for="exampleInputPassword">Password</label>
-						<input type="password" class="form-control" id="exampleInputPassword" placeholder="Password">
-					</div>
-
-					<div class="form-group col-md-12">
-						<label for="exampleInputName">Contact</label>
-						<input type="text" class="form-control" id="exampleInputName2" placeholder="Phone Number">
-					</div>
-					<!--
-  <div class="checkbox">
-    <label>
-      <input type="checkbox"> Check me out
-    </label>
-  </div>
--->
-					<div class="text-center">
-						<button class="btn btn-primary btn-lg" type="button">Submit</button>
-					</div>
-				</form>
-			</div>
-		</div>
-	</div>
-
-<% include partials/footer %>
+  <% include partials/footer %>
