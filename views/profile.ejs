@@ -24,10 +24,9 @@
 
           <ul class="nav navbar-nav navbar-right">
             <li>
-              <a href="#">About</a>
-            </li>
-            <li>
-              <button type="button" class="btn btn-default navbar-btn">Log in</button>
+              <form class="nav-form" action="/about" method="GET"><button class="btn btn-default navbar-btn">About</button></form>
+              <form class="nav-form" action="/profile/<%= result[0].username %>" method="GET"><button class="btn btn-default navbar-btn"><%= result[0].username %></button></form>
+              <form class="nav-form" action="/logout" method="GET"><button class="btn btn-default navbar-btn">Log Out</button></form>
             </li>
           </ul>
         </div>
@@ -49,11 +48,11 @@
             <h3>
               <%= result[0].username %>
             </h3>
+            <h3>
+              Available money : <%= result[0].wallet_money %>
+            </h3> 
             <div style="margin-bottom: 10px;">
-              <form action="/profile/<%= result[0].username%>/cart" method="GET"><button class="btn btn-primary btn-lg">View Cart</button></form>
-            </div>
-            <div>
-              <button class="btn btn-primary btn-lg">View History</button>
+              <form action="/profile/<%= result[0].username%>/payments" method="GET"><button class="btn btn-primary btn-lg">View Payments</button></form>
             </div>
             <!-- <h4 class="user_name">(@user_name</h4> -->
           </div>

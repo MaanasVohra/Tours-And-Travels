@@ -2,3 +2,7 @@
     text-align: center;
     margin-bottom: 15px;
 }
+
+.nav-form { 
+    display: inline-block;
+}

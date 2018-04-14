@@ -25,3 +25,7 @@ html, body {
 .destination-package-destinfo {
     background: #F5F5F5;
 }
+
+.nav-form {
+    display: inline-block;
+}

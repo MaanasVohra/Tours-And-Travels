@@ -1,4 +1,6 @@
 <% include partials/header %>
+
+    <link href="/css/about.css" rel="stylesheet" type="text/css" >
     </head>
 
     <body>
@@ -21,12 +23,19 @@
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 
                     <ul class="nav navbar-nav navbar-right">
+                        <% if(locals.username) { %>
                         <li>
-                            <a href="#">About</a>
+                            <form action="/about" method="GET" class="nav-form"><button class="btn btn-default navbar-btn">About</button></form>
+                            <form action="/profile/<%= username %>" method="GET" class="nav-form"><button class="btn btn-default navbar-btn"><%= username%></button></form>
+                            <form action="/logout" method="GET" class="nav-form"><button class="btn btn-default navbar-btn">Logout</button></form>
                         </li>
+                        <% } else { %>
                         <li>
-                            <button type="button" class="btn btn-default navbar-btn">Log in</button>
+                            <form action="/about" method="GET" class="nav-form"><button class="btn btn-default navbar-btn">About</button></form>
+                            <form action="/login" method="GET" class="nav-form"><button class="btn btn-default navbar-btn">Log In</button></form>
+                            <form action="/signup" method="GET" class="nav-form"><button class="btn btn-default navbar-btn">Sign Up</button></form>
                         </li>
+                        <% } %>
                     </ul>
                 </div>
                 <!-- /.navbar-collapse -->

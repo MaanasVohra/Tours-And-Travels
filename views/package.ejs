@@ -25,10 +25,14 @@
 
                     <ul class="nav navbar-nav navbar-right">
                         <li>
-                            <a href="#">About</a>
-                        </li>
-                        <li>
-                            <button type="button" class="btn btn-default navbar-btn">Log in</button>
+                            <form action="/about" method="GET" class="nav-form"><button class="btn btn-default navbar-btn">About</button></form>
+                            <% if(locals.username) { %>
+                                <form action="/profile/<%= locals.username %>" method="GET" class="nav-form"><button class="btn btn-default navbar-btn"><%= locals.username %></button></form>
+                                <form action="/logout" method="GET" class="nav-form"><button class="btn btn-default navbar-btn">Log Out</button></form>
+                            <% } else { %>
+                                <form action="/login" method="GET" class="nav-form"><button class="btn btn-default navbar-btn">Login</button></form>
+                                <form action="/signup" method="GET" class="nav-form"><button class="btn btn-default navbar-btn">Sign Up</button></form>                            
+                            <% } %>
                         </li>
                     </ul>
                 </div>
@@ -58,6 +62,8 @@
                     <p>Package Details : <%= result[0].package_desc%>
                     </p>
                     <h3>Package Rate Per Person: Rs. <%= result[0].rate%></h3>
+                    <input type="number" min=1 name="" id="person_count" placeholder=1 value=1><button onclick="updateNumber()">Update number</button>
+                    <h3>Final Cost : <span id="final_cost"><%= result[0].rate %></span></h3>
                     </div>
                 </div>
 
@@ -70,6 +76,45 @@
                 </div>
             </div>
 
-            <button class="btn btn-primary btn-large">Add To Cart</button>
+            <div class="box">
+                <% if(locals.username) { %>
+                    <button class="btn btn-primary btn-lg" onclick="sendDetails()">Make Payment</button>
+                <% } else { %>
+                    <h3>You need to sign up or login to choose package</h3>
+                    <form action="/login" style="margin-bottom: 15px;"><button class="btn btn-primary btn-lg">Login</button></form> 
+                    <form action="/signup"><button class="btn btn-primary btn-lg">Sign Up</button></form>
+                <% } %>
+            </div>
+
         </div>
+
+
+        <div id="popup1" class="overlay">
+	        <div class="popup">
+		        <h2>Here i am</h2>
+		        <a class="close" href="#">&times;</a>
+		        <div class="content">
+			        Thank to pop me out of that button, but now i'm done so you can close this window.
+		        </div>
+	        </div>
+        </div>
+
+        <script>
+            function updateNumber() {
+                var personCount = document.getElementById("person_count").value;
+                var rate = <%= result[0].rate %>;
+                var finalCost = rate * personCount;
+                document.getElementById("final_cost").innerHTML = finalCost;
+            }
+
+            function sendDetails() {
+
+                $('<form action="/profile/<%= locals.username %>/payments" method="POST"/>')
+                .append($('<input type="hidden" name="aid" value="hello">'))
+                .appendTo($(document.body)) //it has to be added somewhere into the <body>
+                .submit();
+
+            }
+
+        </script>
 <% include partials/footer %>

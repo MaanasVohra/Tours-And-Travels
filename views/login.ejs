@@ -1,5 +1,6 @@
 <% include partials/header %>
 
+<link href="/css/login.css" rel="stylesheet" type="text/css">
 </head>
 
 <body>
@@ -24,10 +25,9 @@
 
 				<ul class="nav navbar-nav navbar-right">
 					<li>
-						<a href="#">About</a>
-					</li>
-					<li>
-						<button type="button" class="btn btn-default navbar-btn">Log in</button>
+						<form class="nav-form" action="/about" method="GET"><button class="btn btn-default navbar-btn">About</button></form>
+						<form class="nav-form" action="/login" method="GET"><button class="btn btn-default navbar-btn">Log in</button></form>
+						<form class="nav-form" action="/signup" method="GET"><button class="btn btn-default navbar-btn">Sign Up</button></form>
 					</li>
 				</ul>
 			</div>
@@ -44,41 +44,24 @@
 				<img src="https://i.imgur.com/jhlOB1c.png" class="img-responsive" alt="Responsive image">
 			</div>
 			<div class="col-md-6">
-				<h1>Sign Up for an Account</h1>
-				<form class="align-middle">
+				<h1>Login Here</h1>
+				<form class="align-middle" method="POST" action="/login">
 					<div class="form-row">
 						<div class="form-group col-md-6">
-							<label for="exampleInputName2">First Name</label>
-							<input type="text" class="form-control" id="exampleInputName2" placeholder="Peter">
+							<label for="username">Username</label>
+							<input type="text" class="form-control" id="username" placeholder="Username" name="username">
 						</div>
 						<div class="form-group col-md-6">
-							<label for="exampleInputEmail2">Last Name</label>
-							<input type="text" class="form-control" id="exampleInputEmail2" placeholder="Parker">
+							<label for="password">Password</label>
+							<input type="password" class="form-control" id="password" placeholder="Password" name="password">
 						</div>
 					</div>
-					<div class="form-group col-md-12">
-						<label for="exampleInputEmail">Email address</label>
-						<input type="email" class="form-control" id="exampleInputEmail" placeholder="peterparker@iiita.ac.in">
-					</div>
-					<div class="form-group col-md-12">
-						<label for="exampleInputPassword">Password</label>
-						<input type="password" class="form-control" id="exampleInputPassword" placeholder="Password">
-					</div>
-
-					<div class="form-group col-md-12">
-						<label for="exampleInputName">Contact</label>
-						<input type="text" class="form-control" id="exampleInputName2" placeholder="Phone Number">
-					</div>
-					<!--
-  <div class="checkbox">
-    <label>
-      <input type="checkbox"> Check me out
-    </label>
-  </div>
--->
 					<div class="text-center">
-						<button class="btn btn-primary btn-lg" type="button">Submit</button>
+						<button class="btn btn-primary btn-lg">Submit</button>
 					</div>
+				</form>
+				<form class="form-group" style="margin-top: 15px; text-align: center;" action="/signup" method="GET">
+					<button class="btn btn-primary btn-lg" >New? Sign Up!</button>
 				</form>
 			</div>
 		</div>
