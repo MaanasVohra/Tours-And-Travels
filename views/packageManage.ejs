@@ -1,0 +1,101 @@
+<% include partials/header %>
+
+<link href="/css/packageManage.css" rel="stylesheet" type="text/css">
+
+</head>
+
+<body>
+
+
+<!-- Navbar -->
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
+            aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <form action="/" method="GET"><button class="btn btn-default navbar-btn">Travel Bhai</button></form>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+          <ul class="nav navbar-nav navbar-right">
+            <li>
+              <form class="nav-form" action="/about" method="GET"><button class="btn btn-default navbar-btn">About</button></form>
+              <form class="nav-form" action="/profile/<%= username %>" method="GET"><button class="btn btn-default navbar-btn"><%= username %></button></form>
+              <form class="nav-form" action="/logout" method="GET"><button class="btn btn-default navbar-btn">Log Out</button></form>
+            </li>
+          </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+      </div>
+      <!-- /.container-fluid -->
+    </nav>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group form-group-lg">
+                    <label class="col-sm-2 control-label" for="destination">Destination</label>
+                    <div class="col-sm-10">
+                        <input class="form-control" type="text" id="destination" placeholder="Check packages for the destination" name="destination"> 
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <button class="btn btn-primary btn-lg" onclick="getPackages()">Check For Packages</button>
+            </div>
+            <div class="col-md-3">
+                <button class="btn btn-primary btn-lg" onclick="getForm()">Add New Package</button>
+            </div>
+        </div>
+
+        <div class="container-fluid" id="result">
+            
+        </div>
+    </div>
+    
+    
+    <script
+    src="https://code.jquery.com/jquery-3.3.1.js"
+    integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+    crossorigin="anonymous"></script>
+
+    <script>
+        function getPackages() {
+            var destination = document.getElementById("destination").value;
+            var queryDestination = "/query/" + destination; 
+            $.get(queryDestination, function(data, status) {
+                if(data.length == 0) {
+                    document.getElementById("result").innerHTML = "<h1>No packages available</h1>";
+                } else {
+                    document.getElementById("result").innerHTML = "";
+                    for(var i = 0; i < data.length; i++) {
+                        // alert(data[i].package_desc);<form action='/package/" + data[i].package_id + "' method='POST'>
+                        var packageImageDetails = "<form action='/package/" + data[i].package_id + "' method='POST'><div class='row package-details'><div class='col-md-4'><p>Image URL : </p><input type='text' class='form-control' name='package_image' value=" + data[i].package_image + ">";
+                        var packageNormalDetails = "<p><p>Package ID : </p><p><input type='number' name='package_id' class='form-control' disabled value=" + data[i].package_id + "></p><p>Hotel ID</p><input type='text' name='hotel_id' class='form-control' value=" + data[i].hotel_id + "><p>Destination ID</p><input type='text' class='form-control' name='dest_id' value=" + data[i].dest_id + "></p></div>";
+                        var pacakgeIntenseDetails = "<div class='col-md-4'><p><p>Package Name :</p><input class='form-control' name='package_name' type='text' value='" + data[i].package_name + "'></p><p>Package Description</p><p><input type='text' name='package_desc' class='form-control' value='" + data[i].package_desc +"'></p></div>";
+                        var packagePriceDetails = "<div class='col-md-4'><p><p>Rate Per Person : </p><p><input type='number' name='rate' class='form-control' value=" + data[i].rate + "></p></p><p><button class='btn btn-primary btn-lg'>Update this package!</button></p><p><button class='btn btn-primary btn-lg' formaction='/package/" + data[i].package_id + "/delete'>Delete this package!</button></p></div></div></form>";
+                        document.getElementById("result").innerHTML += packageImageDetails + packageNormalDetails + pacakgeIntenseDetails + packagePriceDetails + "<hr />";
+                    }
+                }
+            });
+        }
+
+        function getForm() {
+            document.getElementById("result").innerHTML = "" ;
+            var packageImageDetails = "<form action='/package' method='POST'><div class='row package-details'><div class='col-md-4'><p>Image URL : </p><input type='text' class='form-control' name='package_image'>";
+            var packageNormalDetails = "<p><p>Hotel ID</p><input type='text' name='hotel_id' class='form-control'><p>Destination Name</p><input type='text' class='form-control' name='dest_name'></p></div>";
+            var pacakgeIntenseDetails = "<div class='col-md-4'><p><p>Package Name :</p><input class='form-control' name='package_name' type='text'></p><p>Package Description</p><p><input type='text' name='package_desc' class='form-control'></p></div>";
+            var packagePriceDetails = "<div class='col-md-4'><p><p>Rate Per Person : </p><p><input type='number' name='rate' class='form-control'></p></p><p><button class='btn btn-primary btn-lg'>Add this package!</button></p></div></div></form>";
+            document.getElementById("result").innerHTML += packageImageDetails + packageNormalDetails + pacakgeIntenseDetails + packagePriceDetails + "<hr />";
+        }
+    </script>
+
+<% include partials/footer %>

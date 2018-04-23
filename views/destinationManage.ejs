@@ -1,0 +1,68 @@
+<% include partials/header %>
+
+<link href="/css/destinationManage.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+
+<!-- Navbar -->
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
+            aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <form action="/" method="GET"><button class="btn btn-default navbar-btn">Travel Bhai</button></form>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+          <ul class="nav navbar-nav navbar-right">
+            <li>
+              <form class="nav-form" action="/about" method="GET"><button class="btn btn-default navbar-btn">About</button></form>
+              <form class="nav-form" action="/profile/<%= username %>" method="GET"><button class="btn btn-default navbar-btn"><%= username %></button></form>
+              <form class="nav-form" action="/logout" method="GET"><button class="btn btn-default navbar-btn">Log Out</button></form>
+            </li>
+          </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+      </div>
+      <!-- /.container-fluid -->
+    </nav>
+
+    <div class="container">
+        <div class="row">
+            <form action="/query" method="POST">
+                <div class="col-md-8">
+                        <div class="form-group">
+                            <label for="destination">Destination</label>
+                            <input type="text" class="form-control" id="destination" placeholder="Destination" name="destination">
+                        </div>
+                        <div class="form-group">
+                            <label for="dest-information">Destination Info</label>
+                            <input type="text" class="form-control" id="dest-information" placeholder="Information" name="information">
+                        </div>
+                        <div class="form-group">
+                            <label for="dest-image-url">Destination Image</label>
+                            <input type="text" class="form-control" id="dest-image-url" placeholder="Information" name="dest_image_url">
+                        </div>
+                </div>
+                <div class="col-md-4">
+                    <button type="submit" style="margin-top: 45px;" class="btn btn-primary btn-lg">Add/Modify Destination</button>
+                    <button type="submit" style="margin-top: 45px;" class="btn btn-primary btn-lg" formaction="/query/delete">Delete Destination</button>
+                </div>
+            </form>
+        </div>
+ 
+        </div>
+        </form>
+        </div>
+    </div>
+
+<% include partials/footer %>

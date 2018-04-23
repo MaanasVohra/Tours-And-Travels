@@ -36,7 +36,7 @@ con.connect(function (err) {
     } else {
         console.log("Successfully connected to database");
     }
-})
+});
 
 // setting up body parser
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -46,8 +46,8 @@ app.use(bodyParser.json());
 
 app.get("/", function (req, res) {
     sess = req.session;
-    if (sess) {
-        res.render("landing", { username: sess.username });
+    if (sess.username) {
+        res.render("landing", { username: sess.username, type: sess.user_type });
     } else {
         res.render("landing");
     }
@@ -99,7 +99,8 @@ app.get("/query", function (req, res) {
     sess = req.session;
     con.query(sqlStatement, [dest_name, dest_name], function (err, result) {
         try {
-            if (sess) {
+            // console.log(result);
+            if (sess.username) {
                 res.render("query", { result: result, username: sess.username });
             } else {
                 res.render("query", { result: result });
@@ -110,29 +111,86 @@ app.get("/query", function (req, res) {
     });
 });
 
-// profile page of user/admin
+// get all packages for a particular destination
+app.get("/query/:destination", function (req, res) {
+    sess = req.session;
+    if (sess.username) {
+        if (sess.user_type == "admin") {
+            var dest_name = req.params.destination;
+            var sqlStatement = "select * from package, destination where destination.dest_name = ? and package.dest_id = destination.dest_id;";
+
+            con.query(sqlStatement, [dest_name], function (err, result) {
+                try {
+                    console.log(result);
+                    res.send(result);
+                } catch (err) {
+                    res.send("Some error while querying for destination packages in admin package manage");
+                }
+            });
+        } else {
+            res.send("You sent the GET request to the wrong place, bud");
+        }
+    } else {
+        res.redirect("/login");
+    }
+});
+
+// profile page of user / admin
 app.get("/profile/:username", function (req, res) {
     sess = req.session;
-    if (sess) {
-        if (req.params.username != sess.username) {
-            res.send("You're not allowed to see this page");
-        } else {
+    if (sess.username) {
+        if (req.params.username == sess.username || sess.user_type == "admin") {
             var username = req.params.username;
             var sqlStatement = "select * from user where username = ?";
 
             con.query(sqlStatement, [username], function (err, result) {
                 try {
-                    res.render("profile", { result: result });
+                    if (result[0].user_type == "admin") {
+                        console.log("Going into admin");
+                        res.render("admin", { result: result });
+                    } else {
+                        res.render("profile", { result: result });
+                    }
                 }
                 catch (err) {
                     res.send("No such user available / Errror!");
                 }
             });
+        } else {
+            res.send("You're not allowed to see this page");
         }
     } else {
         res.redirect("/login");
     }
 
+});
+
+// manage destination -> admin only ;
+app.get("/destinationManage", function (req, res) {
+    sess = req.session;
+    if (sess.username) {
+        if (sess.user_type == "admin") {
+            res.render("destinationManage", { username: sess.username });
+        } else {
+            res.send("You're not allowed to view this page");
+        }
+    } else {
+        res.redirect("/login");
+    }
+});
+
+// manage packages -> admin only ;
+app.get("/packageManage", function (req, res) {
+    sess = req.session;
+    if (sess.username) {
+        if (sess.user_type == "admin") {
+            res.render("packageManage", { username: sess.username });
+        } else {
+            res.send("You're not allowed to view this page ");
+        }
+    } else {
+        res.redirect("/login");
+    }
 });
 
 // get the details of package
@@ -145,7 +203,7 @@ app.get("/package/:package_id", function (req, res) {
         try {
             console.log(result);
             if (sess.username) {
-                res.render("package", { result: result, username: sess.username });
+                res.render("package", { result: result, username: sess.username, type: sess.user_type });
             } else {
                 res.render("package", { result: result });
             }
@@ -173,11 +231,12 @@ app.get("/about", function (req, res) {
 app.get("/profile/:username/payments", function (req, res) {
     sess = req.session;
     if (sess.username) {
-        if (req.params.username == sess.username) {
+        if (req.params.username == sess.username || sess.user_type == "admin") {
             var username = req.params.username;
             var sqlStatement = "select * from payments inner join package on payments.package_id = package.package_id where username = ?;";
             con.query(sqlStatement, [username], function (err, result) {
                 try {
+                    console.log(result);
                     res.render("payments", { result: result, username: username });
                 } catch (err) {
                     res.send("There is some error / sql query couldn't be made");
@@ -196,26 +255,267 @@ app.get("/profile/:username/payments", function (req, res) {
 //          POST REQUESTS
 // ======================
 
-// payment part -> most critical part of the app, I'm tired now
-app.post("/profile/:username/payments", function (req, res) {
+// deletion of package;
+app.post("/package/:package_id/delete", function (req, res) {
     sess = req.session;
-    // well the session would obviously exist, but if someone arbritarily throws a post request then it's deadly
     if (sess.username) {
-        var username = req.params.username;
-        var sqlStatement = "select * from user where username = ?;";
-        
-        con.query(sqlStatement, [username], function(err, result) {
-            try {
-                console.log(req);
-                res.send("Fuck");
-            } catch(err) {
-                res.send("Some error in query for post request in payment");
-            }
-        }); 
+        if (sess.user_type == "admin") {
+            var packageId = req.params.package_id;
+            var sqlStatement = "delete from package where package_id = " + "'" + packageId + "';";
+            console.log(sqlStatement);
+            con.query(sqlStatement, function (err, result) {
+                try {
+                    console.log("Successfully deleted package");
+                    res.redirect("/profile/" + sess.username);
+                } catch (err) {
+                    res.send("Some error while carrying out deletion query of package in admin");
+                }
+            });
+        } else {
+            res.send("You sent the post request at the wrong place buddy");
+        }
     } else {
-        res.send("Some error in making payment");
+        res.send("Some error while doing the deletion package post request");
     }
 });
+
+// create a new package
+app.post("/package", function (req, res) {
+    sess = req.session;
+    if (sess.username) {
+        if (sess.user_type == "admin") {
+            var packageImage = req.body.package_image;
+            var hotelID = req.body.hotel_id;
+            var destName = req.body.dest_name;
+            var packageName = req.body.package_name;
+            var packageDesc = req.body.package_desc;
+            var rate = req.body.rate;
+
+            checkDestinationExist(destName)
+                .then(function (rows) {
+                    if (rows.length == 0) {
+                        res.send("Please change the destination, or create a destination to insert a package");
+                    } else {
+                        console.log(rows);
+                        var sqlStatement = "insert into package (dest_id, hotel_id, package_name, package_desc, rate, package_image) values (" + "'" + rows[0].dest_id + "', '" + hotelID + "', '" + packageName + "', '" + packageDesc + "', '" + rate + "', '" + packageImage + "');";
+                        console.log(sqlStatement);
+                        con.query(sqlStatement, function (err, result) {
+                            try {
+                                res.redirect("/profile/" + sess.username);
+                            } catch (err) {
+                                res.send("Some error while creating a totally new package");
+                            }
+                        });
+                    }
+                })
+                .catch((err) => setImmediate(() => { throw err; }));
+        } else {
+            res.send("You sent the post request at the wrong place buddy");
+        }
+    } else {
+        res.send("Some error while creating a new package in admin");
+    }
+});
+
+// check if there is a destination name as specified by the admin
+function checkDestinationExist(destName) {
+    return new Promise(function (resolve, reject) {
+        var sqlStatement = "select * from destination where dest_name = " + "'" + destName + "';";
+        console.log(sqlStatement);
+        con.query(sqlStatement, function (err, rows, fields) {
+            if (err) {
+                return reject(err);
+            }
+            resolve(rows);
+        });
+    });
+}
+
+// update the package -> admin only 
+app.post("/package/:package_id", function (req, res) {
+    sess = req.session;
+    if (sess.username) {
+        if (sess.user_type == "admin") {
+            var packageImage = req.body.package_image;
+            var hotelID = req.body.hotel_id;
+            var destID = req.body.dest_id;
+            var packageName = req.body.package_name;
+            var packageDesc = req.body.package_desc;
+            var rate = req.body.rate;
+
+            var sqlStatement = "update package set package_image = " + "'" + packageImage + "'" + ", hotel_id = " + "'" + hotelID + "'" + ", dest_id = " + "'" + destID + "'" + ", package_name = " + "'" + packageName + "'" + ", package_desc = " + "'" + packageDesc + "'" + ", rate = " + "'" + rate + "' where package_id = " + "'" + req.params.package_id + "';";
+            console.log(sqlStatement);
+            con.query(sqlStatement, function (err, result) {
+                try {
+                    console.log("successful updation of profile");
+                    res.redirect("/profile/" + sess.username);
+                } catch (err) {
+                    res.send("Some error while doing query while updating package by admin");
+                }
+            });
+        } else {
+            res.send("You tried to do a post request at the wrong place buddy ");
+        }
+    } else {
+        res.send("Some error while updating package by admin");
+    }
+});
+
+// delete destination if there exists one
+app.post("/query/delete", function (req, res) {
+    sess = req.session;
+    if (sess.username) {
+        if (sess.user_type == "admin") {
+            var destination = req.body.destination;
+            var sqlStatement = "delete from destination where dest_name = " + "'" + destination + "'" + ";";
+
+            con.query(sqlStatement, function (err, result) {
+                try {
+                    if (result.affectedRows == 0) {
+                        res.send("No such destination exists");
+                    } else {
+                        res.send("Successfully destination deleted");
+                    }
+                } catch (err) {
+                    res.send("Some error while doing delete query in destination");
+                }
+            });
+        } else {
+            res.send("Whoops, you don't have the rights to do that dude");
+        }
+    } else {
+        res.send("There is some error while doing the post request for destination delete");
+    }
+});
+
+// update the query page for the destination 
+
+app.post("/query", function (req, res) {
+    sess = req.session;
+    if (sess.username) {
+        if (sess.user_type == "admin") {
+            var destination = req.body.destination;
+            var information = req.body.information;
+            var destImageURL = req.body.dest_image_url;
+
+            checkForDestination(destination, information, destImageURL)
+                .then(function (rows) {
+                    if (rows.affectedRows == 0) {
+
+                        var sqlStatement = "insert into destination (dest_name, dest_desc, dest_image) values (" + "'" + destination + "'" + ", " + "'" + information + "'" + ", " + "'" + destImageURL + "'" + ");";
+                        console.log(sqlStatement);
+
+                        con.query(sqlStatement, function (err, result) {
+                            try {
+                                console.log("Successful insertion into destination");
+                                res.redirect("/profile/" + sess.username);
+                            } catch (err) {
+                                res.send("Some error while insertion of destination");
+                            }
+                        });
+                    } else {
+                        console.log("Successful modification");
+                        res.redirect("/profile/" + sess.username);
+                    }
+                })
+                .catch((err) => setImmediate(() => { throw err; }));
+        } else {
+            res.send("You send a post to the wrong page buddy ");
+        }
+    } else {
+        res.send("There is some error in the post request while updating destination");
+    }
+});
+
+// check if the destination is already there, i.e. it gets updated
+function checkForDestination(destination, information, destImageURL) {
+    return new Promise(function (resolve, reject) {
+        var sqlStatement = "update destination set dest_desc = " + "'" + information + "'" + ", dest_image = " + "'" + destImageURL + "'" + " where dest_name = " + "'" + destination + "'" + " ;";
+        console.log(sqlStatement);
+        con.query(sqlStatement, function (err, rows, fields) {
+            if (err) {
+                return reject(err);
+            }
+            resolve(rows);
+        });
+    });
+}
+
+
+// add money to user 
+app.post("/profile/:username/addMoney", function (req, res) {
+    sess = req.session;
+    if (sess.username) {
+        if (sess.username == req.params.username || sess.user_type == "admin") {
+            var moneyAdded = req.body.money_added;
+            var sqlStatement = "update user set wallet_money = wallet_money + " + moneyAdded + " where username = " + "'" + req.params.username + "'" + ";";
+            con.query(sqlStatement, function (err, result) {
+                try {
+                    console.log(sqlStatement);
+                    res.redirect("/profile/" + sess.username);
+                } catch (err) {
+                    res.send("Some error adding money in sql statement");
+                }
+            });
+        } else {
+            res.send("You're not allowed to view this page");
+        }
+
+    } else {
+        res.redirect("/login");
+    }
+});
+
+// new payment part
+app.post("/profile/:username/payments", function (req, res) {
+    sess = req.session;
+    if (sess.username) {
+        if (sess.username == req.params.username) {
+            var packageId = req.body.package_id;
+            var amount = req.body.amount;
+            var personCount = req.body.person_count;
+
+            checkForUser(sess.username, amount)
+                .then(function (rows) {
+                    if (rows.affectedRows == 0) {
+                        res.send("Insufficient Funds");
+                    } else {
+                        console.log("Successful payment");
+                        var sqlStatement = "insert into payments (package_id, booking_date, username, person_count, amount) values (?, NOW(), ?, ?, ?);";
+
+                        con.query(sqlStatement, [packageId, sess.username, personCount, amount], function (err, result) {
+                            try {
+                                console.log("Successful insertion in payments");
+                                res.redirect("/");
+                            } catch (err) {
+                                res.send("Some error while sql querying in payments post method");
+                            }
+                        });
+                    }
+                })
+                .catch((err) => setImmediate(() => { throw err; }));
+        } else {
+            res.send("You're not allowed to post request here");
+        }
+    } else {
+        res.send("Error in making payment");
+    }
+});
+
+// check if the user exists and the wallet money condition is satisfied;
+function checkForUser(username, amount) {
+    return new Promise(function (resolve, reject) {
+        var sqlStatement = "update user set wallet_money = wallet_money - " + amount + "   where username = " + "'" + username + "'" + " and wallet_money - " + amount + " >= 0;";
+
+        con.query(sqlStatement, function (err, rows, fields) {
+            console.log(sqlStatement);
+            if (err) {
+                return reject(err);
+            }
+            resolve(rows);
+        });
+    });
+}
 
 // updation of profile
 app.post("/profile/:username", function (req, res) {
@@ -276,7 +576,8 @@ app.post("/login", function (req, res) {
                 if (password == queryPassword) {
                     sess = req.session;
                     sess.username = username;
-                    res.redirect("/profile/" + username);
+                    sess.user_type = result[0].user_type;
+                    res.redirect("/");
                 } else {
                     console.log("Wrong password");
                     res.redirect("/login");

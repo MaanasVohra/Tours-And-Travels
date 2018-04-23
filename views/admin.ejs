@@ -1,10 +1,11 @@
 <% include partials/header %>
-  <link rel="stylesheet" href="/css/profile.css" type="text/css">
-  </head>
 
-  <body>
+<link href="/css/profile.css" rel="stylesheet" type="text/css">
+</head>
 
-    <!-- Navbar -->
+<body>
+
+<!-- Navbar -->
     <nav class="navbar navbar-default">
       <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
@@ -48,20 +49,8 @@
             <h3>
               <%= result[0].username %>
             </h3>
-            <div style="margin-bottom: 10px;">
-              <form action="/profile/<%= result[0].username%>/payments" method="GET"><button class="btn btn-primary btn-lg">View Payments</button></form>
-            </div>
-            <h3>
-              Available money : <%= result[0].wallet_money %>
-            </h3> 
-            <h3>
-              Add Money: 
-            </h3>
-            <form action="/profile/<%= result[0].username %>/addMoney" method="POST">
-              <input style="margin-bottom: 15px;" type="number" min=0 value=0 placeholder=0 name="money_added">
-              <button class="btn btn-lg btn-primary">Add Money!</button>
-            </form>
-            <!-- <h4 class="user_name">(@user_name</h4> -->
+            <form action="/destinationManage" method="GET" class="nav-form"><button class="btn btn-primary btn-lg" style="margin-bottom: 15px;">Manage Destination</button></form>
+            <form action="/packageManage" method="GET" class="nav-form"><button class="btn btn-primary btn-lg">Manage Package</button></form>
           </div>
         </div>
 

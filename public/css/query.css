@@ -14,7 +14,8 @@ html, body {
 }
 
 .destination-package-image {
-    width: 100%;
+    width: 200px;
+    height: 200px;
 }
 
 .destination-package-interact {
@@ -28,4 +29,8 @@ html, body {
 
 .nav-form {
     display: inline-block;
+}
+
+.destination-image { 
+    margin-top: 15px;
 }
